@@ -16,4 +16,6 @@ RUN pip install -r requirements.txt
 ## This is good for hot-reload while developing
 COPY app.py .
 
+ENV APP_VERSION="0.1.0"
+
 CMD ["gunicorn", "--bind", "0.0.0.0:8080", "app:app"]

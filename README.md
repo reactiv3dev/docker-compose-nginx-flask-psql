@@ -55,4 +55,6 @@ def about():
 ```
 
 12. Command for conteinerizing image is:
-docker run -
+```
+docker run -p 7070:8080 reactiv3dev/flask:0.1.0
+```
