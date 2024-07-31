@@ -60,3 +60,41 @@ docker build -t reactiv3dev/flask:0.1.0 .
 
 docker run -p 7070:8080 reactiv3dev/flask:0.1.0
 ```
+
+
+## Docker compose up
+
+1. At the projects root is defined `compose.yaml` file which defines services and has set the instructions on how to build each service by each defined in its own `Dockerfile`, and how to set up Network, Exposed ports, Environement variables etc..
+```
+docker compose up --build (--build flag in order to rebuild on changes in files)
+```
+
+
+## Pesistence with `Volumes` and `Bind mounts`
+- Bind mounts have been arounds since early days of Docker. Bind mounts have limited functionality in compoarison to `volumes`. When you use `bind mount`, a file or directory on host machine is mounted into a container. The file or directory is refrenced by its absolute path on the host machine. By contrast, when we use `volume`, a new directory is created within a Docker's storage direcotry on the host machine, and Docker manages that directory's contents.
+* ADVANTAGES OF VOLUMES OVER BIND MOUNTS:
+    - Volumes are easier to backup or migrate dthan bind mounts.
+    - You can manage volumes using Docker CLI commands or the Docker API
+    - Volumes work on both Linux and Windows containers.
+    - Volumes acan be more safely shared among multiple containers.
+    - Volume drivers let you store volumes on remote hosts or cloud providers,
+    encrypt the contents of volumes, or add other functionality.
+    - New volumes can have their content pre-populated by a container.
+    - Volumes on Docker Desktop have much higher performance than bind mounts from Mac and Windows hosts.
+
+- For`Bind mounts` example we just define volumen dir in our physical place that will reflect onto dir in conteinarized app `./our_dir:./container_dir`:
+```
+volumes:
+    - ./flask-app/my-data:/data
+```
+
+- For `Volumes` example, we need to define name on top level of `volumes` and the same name with `:` delimiter against apps containerized dir:
+```
+services:
+    flask-app:
+        volumes:
+            flask-storage:/data
+
+volumes
+    flask-storage:
+```

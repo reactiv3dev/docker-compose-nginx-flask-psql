@@ -1,0 +1,19 @@
+services:
+  flask:
+    build: 
+      context: flask-app  #folder where app is
+      dockerfile: Dockerfile #dockerfile name
+    image: reactiv3dev/flask:latest
+    ports:
+      - 7070:8080
+    env_file:
+      - ./flask-app/.env
+    environment:
+      - APP_VERSION=0.1.0
+      - APP_TOKEN=${APP_TOKEN} # docker will warn us if this is not set!
+    volumes:
+      - flask-data:/data
+      #- ./flask-app/my_data:/data
+
+volumes:
+  flask-data:

@@ -1,5 +1,6 @@
 FROM python:3.12.4-alpine3.20
 
+
 # We need curl for health check
 RUN apk --no-cache add curl
 
@@ -17,5 +18,7 @@ RUN pip install -r requirements.txt
 COPY app.py .
 
 ENV APP_VERSION="0.1.0"
+
+EXPOSE 8080
 
 CMD ["gunicorn", "--bind", "0.0.0.0:8080", "app:app"]
