@@ -98,3 +98,45 @@ services:
 volumes
     flask-storage:
 ```
+
+
+## ENVIRONMENT VARIABLES AND SECRETS
+
+- When it comes to envionment variables those can be set in many ways,most easy ones are when executing direct commands in a terminal:
+```
+>> docker run -p 8080:80 -e APP_TOKEN=some_value nginx
+```
+
+or in front of command as if in: 
+```
+>> APP_TOKEN=secret123 docker compose up
+```
+
+- Most convinient way for the most application configuration is to list them directly in `Dockerfile` as following:
+```
+...
+ENV APP_VERSION="0.1.0"
+
+EXPOSE 5000
+...
+```
+or in `compose.yaml` as `.env` file relative path or as list of env variables:
+```
+    env_file:
+      - ./flask-app/.env
+    environment:
+      - APP_VERSION=0.1.0
+      - APP_TOKEN=${APP_TOKEN} # docker will warn us if this is not set!
+
+```
+-`Secrets` can be defined in file to which path will be define in `compose.yaml` file:
+```
+services: 
+    flask:
+        secrets:
+            - api_key
+
+secrets:
+    api_key:
+        file: ./flask-app/api_key.txt
+```
