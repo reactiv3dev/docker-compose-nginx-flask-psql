@@ -140,3 +140,12 @@ secrets:
     api_key:
         file: ./flask-app/api_key.txt
 ```
+
+
+## NETWORKS
+
+- Networks can be arranged in many ways, but as availability is concerned, they can be splitted into `public` and `private`:
+    * We want them `public` so we could expose our apps, deliver sites, gateways or API endpoints to the outside world
+    * We want them `private` so we could protect parts of our apps, such as microservices and database from sinister eye of malicious attackers
+
+### Types of Networks and Configurations
